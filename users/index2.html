@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>D3 World Map</title>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+<script src="datamaps.world.min.js"></script>
+  </head>
+  <body>
+<div id="container" style="position: relative; width: 1024px; height: 640px;"></div>
+<script>
+    var map = new Datamap({
+        element: document.getElementById('container'),
+	geographyConfig: {
+        popupOnHover: false,
+       	highlightOnHover: false
+    	},
+        fills: {
+            IOS: 'black',
+            WINDOWS: 'blue',
+            ANDROID: 'green',
+            UNKNOWN: 'rgb(0,0,0)',
+            defaultFill: 'lightgray'
+        },
+        geographyConfig: {
+            popupTemplate: function(geo, data) {
+                return ['<div class="hoverinfo"><strong>',
+                        'Number of things in ' + geo.properties.name,
+                        ': ' + data.numberOfThings,
+                        '</strong></div>'].join('');
+            }
+        }
+    });
+var bombs = [{
+        name: 'Monterrey',
+        radius: 5,
+        yield: "Windows",
+        fillKey: 'WINDOWS',
+        latitude: 25.86,
+        longitude: -100.23
+      },{
+        name: 'Caracas',
+        radius: 5,
+        yield: "Windows",
+        fillKey: 'WINDOWS',
+        latitude: 10.60,
+        longitude: -66.99
+      },{
+        name: 'Chicago',
+        radius: 5,
+        yield: "Windows",
+        fillKey: 'WINDOWS',
+        latitude: 41.78,
+        longitude: -87.75
+      },{
+        name: 'Panama',
+        radius: 5,
+        yield: "Android",
+        fillKey: 'ANDROID',
+        latitude: 8.97,
+        longitude: -79.55
+      },{
+        name: 'Denver',
+        radius: 5,
+        yield: "Windows",
+        fillKey: 'WINDOWS',
+        latitude: 39.85,
+        longitude: -104.66
+      },{
+        name: 'Mazatlan',
+        radius: 5,
+        yield: "Android",
+        fillKey: 'ANDROID',
+        latitude: 23.16,
+        longitude: -106.26
+      },{
+        name: 'Fortaleza',
+        radius: 5,
+        yield: "Windows",
+        fillKey: 'WINDOWS',
+        latitude: -3.77,
+        longitude: -38.53
+      },{
+        name: 'Vancouver',
+        radius: 5,
+        yield: "Windows",
+        fillKey: 'WINDOWS',
+        latitude: 49.19,
+        longitude: -123.18
+      },{
+        name: 'Argentina',
+        radius: 5,
+        yield: "Windows",
+        fillKey: 'WINDOWS',
+        latitude: -38.41,
+        longitude: -63.61
+      },{
+        name: 'Montevideo',
+        radius: 5,
+        yield: "Windows",
+        fillKey: 'WINDOWS',
+        latitude: -34.78,
+        longitude: -56.26
+      },{
+        name: 'Curacao',
+        radius: 5,
+        yield: "Android",
+        fillKey: 'ANDROID',
+        latitude: 12.16,
+        longitude: -68.99
+      },{
+        name: 'New_York',
+        radius: 5,
+        yield: "Windows",
+        fillKey: 'WINDOWS',
+        latitude: 40.63,
+        longitude: -73.77
+      },{
+        name: 'Tegucigalpa',
+        radius: 5,
+        yield: "Android",
+        fillKey: 'ANDROID',
+        latitude: 14.06,
+        longitude: -87.21
+      },{
+        name: 'Indianapolis',
+        radius: 5,
+        yield: "Windows",
+        fillKey: 'WINDOWS',
+        latitude: 39.71,
+        longitude: -86.29
+      },{
+        name: 'Phoenix',
+        radius: 5,
+        yield: "iOS",
+        fillKey: 'IOS',
+        latitude: 33.53,
+        longitude: -112.38
+      },{
+        name: 'Cancun',
+        radius: 5,
+        yield: "iOS",
+        fillKey: 'IOS',
+        latitude: 21.03,
+        longitude: -86.87
+      },{
+        name: 'Los_Angeles',
+        radius: 5,
+        yield: "Windows",
+        fillKey: 'WINDOWS',
+        latitude: 33.94,
+        longitude: -118.40
+      },{
+        name: 'Guatemala',
+        radius: 5,
+        yield: "Windows",
+        fillKey: 'WINDOWS',
+        latitude: 15.78,
+        longitude: -90.23
+      },{
+        name: 'Montreal',
+        radius: 5,
+        yield: "Windows",
+        fillKey: 'WINDOWS',
+        latitude: 45.51,
+        longitude: -73.41
+      },{
+        name: 'Rainy_River',
+        radius: 5,
+        yield: "Windows",
+        fillKey: 'WINDOWS',
+        latitude: 29.88,
+        longitude: -95.44
+      },{
+        name: 'Mexico_City',
+        radius: 5,
+        yield: "Windows",
+        fillKey: 'WINDOWS',
+        latitude: 40.63,
+        longitude: -73.77
+      },{
+        name: 'Santo_Domingo',
+        radius: 5,
+        yield: "Windows",
+        fillKey: 'WINDOWS',
+        latitude: 18.47,
+        longitude: -69.96
+      },{
+        name: 'St_Vincent',
+        radius: 5,
+        yield: "Android",
+        fillKey: 'ANDROID',
+        latitude: 29.99,
+        longitude: -91.05
+      },{
+        name: 'Recife',
+        radius: 5,
+        yield: "Windows",
+        fillKey: 'WINDOWS',
+        latitude: -8.12,
+        longitude: -34.92
+      },{
+        name: 'Bahia',
+        radius: 5,
+        yield: "Windows",
+        fillKey: 'WINDOWS',
+        latitude: -12.57,
+        longitude: -41.70
+      },{
+        name: 'Tijuana',
+        radius: 5,
+        yield: "Android",
+        fillKey: 'ANDROID',
+        latitude: 32.55,
+        longitude: -116.77
+      },{
+        name: 'Guayaquil',
+        radius: 5,
+        yield: "Windows",
+        fillKey: 'WINDOWS',
+        latitude: -2.17,
+        longitude: -79.92
+      },{
+        name: 'Cuiaba',
+        radius: 5,
+        yield: "Windows",
+        fillKey: 'WINDOWS',
+        latitude: -15.60,
+        longitude: -56.09
+      },{
+        name: 'Bogota',
+        radius: 5,
+        yield: "Windows",
+        fillKey: 'WINDOWS',
+        latitude: 4.71,
+        longitude: -74.07
+      },{
+        name: 'Edmonton',
+        radius: 5,
+        yield: "iOS",
+        fillKey: 'IOS',
+        latitude: 53.54,
+        longitude: -113.49
+      },{
+        name: 'Puerto_Rico',
+        radius: 5,
+        yield: "iOS",
+        fillKey: 'IOS',
+        latitude: 18.22,
+        longitude: -66.59
+      },{
+        name: 'Sao_Paulo',
+        radius: 5,
+        yield: "Windows",
+        fillKey: 'WINDOWS',
+        latitude: -23.55,
+        longitude: -46.63
+      },{
+        name: 'Costa_Rica',
+        radius: 5,
+        yield: "Windows",
+        fillKey: 'WINDOWS',
+        latitude: 9.74,
+        longitude: -83.75
+      },{
+        name: 'Lima',
+        radius: 5,
+        yield: "Windows",
+        fillKey: 'WINDOWS',
+        latitude: 40.74,
+        longitude: -84.10
+      },{
+        name: 'La_Paz',
+        radius: 5,
+        yield: "Windows",
+        fillKey: 'WINDOWS',
+        latitude: -16.48,
+        longitude: -68.11
+      }];
+map.bubbles(bombs, {
+    popupTemplate: function (geo, data) {
+            return ['<div class="hoverinfo">' +  data.name,
+            '<br/>OS: ' +  data.yield,
+            '</div>'].join('');
+    }
+});
+</script>
+  </body>
+</html>

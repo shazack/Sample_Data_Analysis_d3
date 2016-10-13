@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>D3 World Map</title>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+<script src="datamaps.world.min.js"></script>
+  </head>
+  <body>
+<div id="container" style="position: relative; width: 1024px; height: 640px;"></div>
+<script>
+    var map = new Datamap({
+        element: document.getElementById('container'),
+	geographyConfig: {
+        popupOnHover: false,
+       	highlightOnHover: false
+    	},
+        fills: {
+            LOW: 'blue',
+            HIGH: 'blue',
+            MEDIUM: 'blue',
+            UNKNOWN: 'rgb(0,0,0)',
+            defaultFill: 'lightgray'
+        },
+        geographyConfig: {
+            popupTemplate: function(geo, data) {
+                return ['<div class="hoverinfo"><strong>',
+                        'Number of things in ' + geo.properties.name,
+                        ': ' + data.numberOfThings,
+                        '</strong></div>'].join('');
+            }
+        }
+    });
+var bombs = [{
+        name: 'Eastern Europe',
+        radius: 5,
+        yield: "33",
+        fillKey: 'HIGH',
+        latitude: 51.72703,
+        longitude: 28.38867
+      },{
+        name: 'Northwest Arctic Borough',
+        radius: 10,
+        yield: "411",
+        fillKey: 'HIGH',
+        latitude: 66.83333,
+        longitude: -161.00056
+      },{
+        name: 'Mount Stromlo',
+        radius: 5,
+        yield: "36",
+        fillKey: 'HIGH',
+        latitude: -35.31616,
+        longitude: 149.01047
+      },{
+        name: 'blue earth county',
+        radius: 7,
+        yield: "193",
+        fillKey: 'MEDIUM',
+        latitude:44.03459,
+        longitude: -94.06703
+      },{
+        name: 'city of sandy springs',
+        radius: 5,
+        yield: "41",
+        fillKey: 'HIGH',
+        latitude: 33.93667,
+        longitude: -84.37032
+      },{
+        name: 'South America',
+        radius: 8,
+        yield: "323",
+        fillKey: 'MEDIUM',
+        latitude: -14.60485,
+        longitude: -57.65625
+      },{
+        name: 'United States',
+        radius: 5,
+        yield: "43",
+        fillKey: 'HIGH',
+        latitude: 39.7,
+        longitude: -98.5
+      },{
+        name: 'Rocanville no.151',
+        radius: 5,
+        yield: "151",
+        fillKey: 'HIGH',
+        latitude: 50.4167,
+        longitude:-101.75094
+      },{
+        name: 'emerald no. 277 ',
+        radius: 5,
+        yield: "27",
+        fillKey: 'HIGH',
+        latitude: 51.50005,
+        longitude: -103.91775
+      },{
+        name: 'san juan',
+        radius: 5,
+        yield: "29",
+        fillKey: 'HIGH',
+        latitude: 18.46633,
+        longitude: -66.10572
+      },{
+        name: 'washington',
+        radius: 5,
+        yield: "33",
+        fillKey: 'MEDIUM',
+        latitude: 47.50012,
+        longitude: -120.50147
+      },{
+        name: 'Paris',
+        radius: 5,
+        yield: "6",
+        fillKey: 'HIGH',
+        latitude: 48.85341,
+        longitude: 2.3488
+      },{
+        name: 'Shanghai',
+        radius: 5,
+        yield: "19",
+        fillKey: 'MEDIUM',
+        latitude: 31.22222,
+        longitude: 121.45806
+      },{
+        name: 'creek county',
+        radius: 5,
+        yield: "9",
+        fillKey: 'HIGH',
+        latitude: 35.90268,
+        longitude: -96.37094
+      },{
+        name: 'chesapeake bay bridge-tunnel',
+        radius: 5,
+        yield: "13",
+        fillKey: 'LOW',
+        latitude: 37.03348,
+        longitude: -76.08299
+      },{
+        name: 'Beijing',
+        radius: 5,
+        yield: "LOW",
+        fillKey: 'LOW',
+        latitude: 39.9075,
+        longitude: 116.39723
+      },{
+        name: 'Los_Angeles',
+        radius: 5,
+        yield: "10",
+        fillKey: 'HIGH',
+        latitude: 33.94,
+        longitude: -118.40
+      },{
+        name: 'City of Le Mars',
+        radius: 5,
+        yield: "19",
+        fillKey: 'HIGH',
+        latitude: 42.78102,
+        longitude: -96.17418
+      },{
+        name: 'river nile',
+        radius: 5,
+        yield: "10",
+        fillKey: 'HIGH',
+        latitude: 19.0,
+        longitude: 33.2
+      },{
+        name: 'London',
+        radius: 5,
+        yield: "6",
+        fillKey: 'HIGH',
+        latitude: 51.50853,
+        longitude: -0.12574
+      },{
+        name: 'Mexico_City',
+        radius: 5,
+        yield: "6",
+        fillKey: 'HIGH',
+        latitude: 40.63,
+        longitude: -73.77
+      },{
+        name: 'new york',
+        radius: 5,
+        yield: "13",
+        fillKey: 'HIGH',
+        latitude:43.00035,
+        longitude: -75.4999
+      },{
+        name: 'alice springs ',
+        radius: 5,
+        yield: "MEDIUM",
+        fillKey: 'MEDIUM',
+        latitude: -23.731,
+        longitude: 133.83321
+      },{
+        name: 'central african republic',
+        radius: 5,
+        yield: "10",
+        fillKey: 'HIGH',
+        latitude: 7.0,
+        longitude: 21.0
+      },{
+        name: 'santa barbara county',
+        radius: 5,
+        yield: "7",
+        fillKey: 'HIGH',
+        latitude: 34.53834,
+        longitude: -120.03078
+      },{
+        name: 'california',
+        radius: 5,
+        yield: "15",
+        fillKey: 'MEDIUM',
+        latitude: 37.25022,
+        longitude: -119.75126
+      },{
+        name: 'City of University Place',
+        radius: 5,
+        yield: "6",
+        fillKey: 'HIGH',
+        latitude: 47.21484,
+        longitude: -122.54608
+      },{
+        name: 'north carolina',
+        radius: 5,
+        yield: "12",
+        fillKey: 'HIGH',
+        latitude: 35.50069,
+        longitude: -80.00032
+      },{
+        name: 'montana',
+        radius: 5,
+        yield: "8",
+        fillKey: 'HIGH',
+        latitude: 47.00025,
+        longitude: -109.75102
+      },{
+        name: 'nevada',
+        radius: 5,
+        yield: "10",
+        fillKey: 'LOW',
+        latitude: 39.25021,
+        longitude:-116.75119
+      },{
+        name: 'bering sea',
+        radius: 5,
+        yield: "8",
+        fillKey: 'LOW',
+        latitude: 60.0,
+        longitude: -175.0
+      },{
+        name: 'democratic republic of the congo',
+        radius: 5,
+        yield: "7",
+        fillKey: 'HIGH',
+        latitude: -2.5,
+        longitude: 23.5
+      },{
+        name: 'salt lake city',
+        radius: 5,
+        yield: "18",
+        fillKey: 'HIGH',
+        latitude: 40.76078,
+        longitude: -111.89105
+      },{
+        name: 'japan',
+        radius: 5,
+        yield: "6",
+        fillKey: 'HIGH',
+        latitude: 35.68536,
+        longitude:139.75309
+      },{
+        name: 'san juan',
+        radius: 5,
+        yield: "29",
+        fillKey: 'HIGH',
+        latitude: -16.48,
+        longitude: -68.11
+      },{
+         name: 'Commonwealth of Australia',
+         radius: 5,
+         yield: "6",
+         fillKey: 'HIGH',
+         latitude: -25.0,
+         longitude: 135.0
+             },{
+             name: 'alabama',
+             radius: 5,
+             yield: "6",
+             fillKey: 'HIGH',
+             latitude: 32.75041,
+             longitude: -86.75026
+             },{
+             name: 'colorado',
+             radius: 5,
+             yield: "6",
+             fillKey: 'HIGH',
+             latitude: 39.00027,
+             longitude:-105.50083
+             },
+             {
+             name: 'nice',
+             radius: 5,
+             yield: "6",
+             fillKey: 'HIGH',
+             latitude: 43.70313,
+             longitude:7.26608
+             }
+             
+             
+             
+    
+             
+             
+             
+             ];
+map.bubbles(bombs, {
+    popupTemplate: function (geo, data) {
+            return ['<div class="hoverinfo">' +  data.name,
+            '<br/>Frequency: ' +  data.yield,
+            '</div>'].join('');
+    }
+});
+</script>
+  </body>
+</html>
